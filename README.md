@@ -201,7 +201,7 @@ We'll do the following steps to add ads to our managers.
 
 1. Create a new class ``Ad`` that inherits from ``ActiveRecord::Base`` and includes a 
 ``has_one`` relationship to ``Manager``.
-1. Add ``belongs_to`` in the ``Manager`` model 
+1. Add ``belongs_to`` in the ``Manager`` model.
 1. Create a migration that adds an ``Ad`` table with a fields ``headline`` and ``url``. Also 
 add a reference to the ``managers`` table pointing to the ``Ad`` model.
 2. Create a new Ad in tux and associate the Ricky Bobby manager to the ad.
