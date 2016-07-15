@@ -121,15 +121,15 @@ relationship. Let's look at the following code:
 ```
 
 First we find an Artist. If we're using the seed file, the first artist is Luciano Pavoritti.
-Next, we can see that artist instances now have a ``songs`` method. This acts just like an 
+Next, we can see that ActiveRecord add a songs method to artist instances.  This acts just like an 
 array. In particular, if we find all of the songs and assign those songs to the array, we can
 associate all the songs to ``luciano``. If we save ``luciano``, ActiveRecord takes care of 
 which records need to be saved and makes sure the database reflects what we just did in Ruby.
 
 Run the code in tux so that there are now songs associated to ``luciano``.
 
-Similarly to song instances we added the ``.artist`` method that gives us the artist 
-associated with a song.
+Similarly, ActiveRecord added an ``.artist`` method to the song instances. The ``.artist`` method gives 
+us the Artist associated with a song.
 
 __Update our ERBs:__
 
@@ -184,9 +184,9 @@ And in songs we add
   belongs_to :managers
 ```
 
-Once we add these lines, we have the similar methods to ``Artist``, with ``Manager`` getting a
-``.songs`` method that acts like an array of songs and ``Song`` getting a ``.manager``
- method.
+Once we add these lines, ActiveRecord adds a ``.songs`` method to ``Manager`` that acts like an array 
+of array of songs. ActiveRecord also adds a ``.manager`` to the ``Song`` instances to let us get the 
+``Manager`` associated with a song.
 
 Now, add an unordered list of the manager's songs to ``managers/show.erb``.
 
