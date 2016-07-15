@@ -47,8 +47,8 @@ In this lab, we'll be implementing some of the ERD in our Tunr app.
 What are the steps to setup a new application from Github?
 
 <details>
-Fork/clone the repo, bundle install, rake db:setup or rake db:create, rake db:migrate/rake
- db:schema:load.
+Fork/clone the repo, bundle install, rake db:setup (rake db:setup runs rake db:create and rake
+ db:schema:load, as well as running your seed file).
 
 This repo uses a different database than our Tunr database from yesterday so you'll need to 
 create it from scratch.
