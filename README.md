@@ -33,8 +33,8 @@ way, for instance, artists play multiple songs. ActiveRecord provides helpful me
 
 It's time to start adding some relationships to the existing Tunr database. We're going to 
 help include information from the various models on different pages. We'll end up adding 
-song information to artists, help managers can some credibility by listing the songs of their 
-clients. Finally we'll add an optional revenue source by enabling managers to create an add 
+song information to artists, help managers gain some credibility by listing the songs of their 
+clients. Finally we'll add an optional revenue source by enabling managers to create an ad 
 to help attract new clients.
 
 When we originally started planning Tunr we created the following ERD, 
@@ -62,15 +62,15 @@ rerun, tux
 
 #### Sprint 1 Songs and Artists 
 Our first goal is to add a list of songs to the artist detail page and add the artist name
-to the list of songs. To do this we'll create a **has many** relationship between the 
+to the list of songs. To do this, we'll create a **has many** relationship between the 
 ``Artist`` and ``Song`` models.
 
 To do this we'll need to:
 
 1. Update the models to list the relationship
 1. Update our database 
-2. Adding songs to a artist
-2. Update our ERB to add 
+2. Add songs to an artist
+2. Update our ERB accordingly
 
 
 __Update our models:__
@@ -93,7 +93,7 @@ end
 
 __Prep the database:__
 
-We need to help the SQL database understand the relationship as well as our app. In order 
+We need to help the SQL database understand the relationship as well as our app. In order to 
 make the link in the database we need to create the migration. The migration is simple. We 
 do this often enough that ActiveRecord provides a special method for adding references.
 
@@ -121,8 +121,8 @@ relationship. Let's look at the following code:
 ```
 
 First we find an Artist. If we're using the seed file, the first artist is Luciano Pavoritti.
-Next we can see that artist instances now have a ``songs`` method. This acts just like an 
-array in particular if we find all of the songs and assign those songs to the array, we can
+Next, we can see that artist instances now have a ``songs`` method. This acts just like an 
+array. In particular, if we find all of the songs and assign those songs to the array, we can
 associate all the songs to ``luciano``. If we save ``luciano``, ActiveRecord takes care of 
 which records need to be saved and makes sure the database reflects what we just did in Ruby.
 
@@ -133,7 +133,7 @@ associated with a song.
 
 __Update our ERBs:__
 
-To the ``artists/show.erb``, lets add an unordered list: 
+To the ``artists/show.erb``, let's add an unordered list: 
 ```ruby
 <ul>
   <% @artist.songs.each do |song| %>
@@ -155,7 +155,7 @@ Make sure your server is updated and let's review our work!
 
 #### Sprint 2 Managers and Songs through Artists
 
-Just like artists, managers need to highlight the hit songs they associated with. Like with 
+Just like artists, managers need to highlight the hit songs they are associated with. Like with 
 artists, we'll add the songs to the show route of the managers.
 
 First, we need to create a ``has many`` relationship between managers and artists. Try to do 
@@ -165,12 +165,14 @@ Here's a hint if you need it:
 <details>
 1. Add the ``has_many`` method to the ``Manager`` model and the ``belongs_to`` method to 
 ``Artist``
-2. Create a migration to reference manger from artists
+
+2. Create a migration to reference manager from artists
+
 3. Add an artist to a manager
 </details>
 
 Once we've added the ``has_many`` relationship between ``Manager`` and ``Artist``, adding 
-the has ``has_many through`` relationship is easy. All we need to do is in fact is add two lines. In ``models/manager.rb`` we add 
+the ``has_many through`` relationship is easy. In fact, all we need to do is add two lines. In ``models/manager.rb`` we add 
 
 ```ruby
   has_many :songs, through: :artists
@@ -182,14 +184,14 @@ And in songs we add
   belongs_to :managers
 ```
 
-Once we add these lines we have the similar methods to ``Artist``, with ``Manager`` getting a
+Once we add these lines, we have the similar methods to ``Artist``, with ``Manager`` getting a
 ``.songs`` method that acts like an array of songs and ``Song`` getting a ``.manager``
  method.
 
 Now, add an unordered list of the manager's songs to ``managers/show.erb``.
 
 Tip: ActiveRecord has some trouble with writing to ``has_many through`` relationships and 
-should be treated more as a read only relationship.
+it should be treated more as a read only relationship.
 
 #### Sprint 3 Manager Ads
 Last but not least let's start adding some revenue to Tunr. We're enabling managers to create
