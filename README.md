@@ -181,7 +181,7 @@ the ``has_many through`` relationship is easy. In fact, all we need to do is add
 And in songs we add
 
 ```ruby
-  belongs_to :managers
+  belongs_to :manager
 ```
 
 Once we add these lines, ActiveRecord adds a ``.songs`` method to ``Manager`` that acts like an array 
