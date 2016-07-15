@@ -18,8 +18,15 @@ Manager.create({
 	})
 
 Song.create({
-	title: "The Best Song Ever",
-	duration: "3:31",
-	date_of_release: "7/31/2015",
-	album_title: "Best Album Ever"
+	title: "O sole mio",
+	duration: "3:21",
+	date_of_release: "1990",
+	album_title: "Three Tenors in Concert"
+	})
+
+Song.create({
+	title: "Nessun dorma",
+	duration: "3:21",
+	date_of_release: "1990",
+	album_title: "Three Tenors in Concert"
 	})
