@@ -39,6 +39,7 @@ to help attract new clients.
 
 When we originally started planning Tunr we created the following ERD, 
 
+![Tunr ERD](https://github.com/den-wdi-1/tunr-relationships/blob/master/tunr_erd.png)
 
 In this lab, we'll be implementing some of the ERD in our Tunr app.
 
