@@ -155,39 +155,9 @@ Make sure your server is updated and let's review our work!
 Just like artists need to highlight the hit songs they are associated with, managers need to highlight the hit artists they are associated with.
 
 First, we need to create a ``has many`` relationship between managers and artists. Try to do 
-this yourself. 
+this without looking at the Sprint above first, then correct as needed. 
 
-Here's a hint if you need it:
-<details>
-1. Add the ``has_many`` method to the ``Manager`` model and the ``belongs_to`` method to 
-``Artist``
-
-2. Create a migration to reference manager from artists
-
-3. Add an artist to a manager
-</details>
-
-Once we've added the ``has_many`` relationship between ``Manager`` and ``Artist``, adding 
-the ``has_many through`` relationship is easy. In fact, all we need to do is add two lines. In ``models/manager.rb`` we add 
-
-```ruby
-  has_many :songs, through: :artists
-```
-
-And in songs we add
-
-```ruby
-  belongs_to :manager
-```
-
-Once we add these lines, ActiveRecord adds a ``.songs`` method to ``Manager`` that acts like an array 
-of array of songs. ActiveRecord also adds a ``.manager`` to the ``Song`` instances to let us get the 
-``Manager`` associated with a song.
-
-Now, add an unordered list of the manager's songs to ``managers/show.erb``.
-
-Tip: ActiveRecord has some trouble with writing to ``has_many through`` relationships and 
-it should be treated more as a read only relationship.
+Now we have a ``has_many`` relationship between ``Manager`` and ``Artist``, so let's add an unordered list of the manager's songs to ``managers/show.ejs``.  Again, try to do this without looking at the Sprint above, then correct as needed.
 
 #### Sprint 3 Manager Ads
 Last but not least let's start adding some revenue to Tunr. We're enabling managers to create
