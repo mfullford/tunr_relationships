@@ -155,9 +155,13 @@ Make sure your server is updated and let's review our work!
 Just like artists need to highlight the hit songs they are associated with, managers need to highlight the hit artists they are associated with.
 
 First, we need to create a ``has many`` relationship between managers and artists. Try to do 
-this without looking at the Sprint above first, then correct as needed. 
+this without looking at the Sprint above first, then correct as needed. Don't forget to run `dbSetup.js`, or you won't be able to finish the next steps.
 
-Now we have a ``has_many`` relationship between ``Manager`` and ``Artist``, so let's add an unordered list of the manager's songs to ``managers/show.ejs``.  Again, try to do this without looking at the Sprint above, then correct as needed.
+Now we have a ``has_many`` relationship between ``Manager`` and ``Artist``, so we need to seed our DB a little differently.  Add Pavarotti to Ricky Bobby's roster. Try to do this without looking at the Sprint above first, then correct as needed.
+
+>**Hint:** Maybe the manager should be created first now, then we can pass its id into the artist creation function in a `.then` clause.  Once this is done, do we even need to call `artistCreate()` at the bottom of `seed.js`?
+
+Now, let's add an unordered list of the manager's songs to ``managers/show.ejs``.  Again, try to do this without looking at the Sprint above, then correct as needed.
 
 #### Sprint 3 Manager Ads
 Last but not least let's start adding some revenue to Tunr. We're enabling managers to create
