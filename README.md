@@ -164,27 +164,29 @@ Now we have a ``has_many`` relationship between ``Manager`` and ``Artist``, so w
 Now, let's add an unordered list of the manager's songs to ``managers/show.ejs``.  Again, try to do this without looking at the Sprint above, then correct as needed.
 
 #### Sprint 3 Manager Ads
-Last but not least let's start adding some revenue to Tunr. We're enabling managers to create
+Last but not least, let's start adding some revenue to Tunr. We're enabling managers to create
 ads to help drum up business.
 
 We'll do the following steps to add ads to our managers.
 
-1. Create a new class ``Ad`` that inherits from ``ActiveRecord::Base`` and includes a 
-``has_one`` relationship to ``Manager``.
-1. Add ``belongs_to`` in the ``Manager`` model.
-1. Create a migration that adds an ``Ad`` table with a fields ``headline`` and ``url``. Also 
-add a reference to the ``managers`` table pointing to the ``Ad`` model.
-2. Create a new Ad in tux and associate the Ricky Bobby manager to the ad.
+1. Create a new model ``Ad`` that includes the fields ``headline`` and ``url`` (both Strings).
+2. Add a  ``Manager`` ``has_one`` ``Ad`` relationship.
+1. Add an ``Ad`` ``belongs_to`` ``Manager`` relationship.
+1. Create a migration that adds an ``Ad`` table with a . Also 
+2. Create a new Ad in `seed.js` and associate the Ricky Bobby manager to the ad.
 1. On the manager index page, for each manager add the ad headline as a link to the ad url.
 
 ## Closing Thoughts
-Relationships are one of the most powerful ways we have of manipulating data. It let's us 
-use the Ruby methods that are much more used to and comfortable with rather than SQL which 
+Relationships are one of the most powerful ways we have of manipulating data. They let us 
+use the JS methods and object that we are much more comfortable with rather than SQL which 
 can be messy and lead to bugs.
 
 ## Resources
 
-- [ActiveRecord Associations Official Docs](http://guides.rubyonrails.org/association_basics.html)
+- [Sequelize Associations Official Docs](http://docs.sequelizejs.com/en/v3/docs/associations/)
+- [Solid Sequelize Tutorial with more advanced topics](https://scotch.io/tutorials/creating-an-angularjs-application-with-sequelize-part-1)\*
+
+\* Beware, this tutorial has some typos, misplaced files, and poorly explained concepts.  I give it a 7/10.  If you want to get used to reading tutorials, this is a pretty good example of what I'd call "good enough".
 
 ## Licensing
 
