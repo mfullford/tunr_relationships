@@ -50,7 +50,7 @@ You'll notice the `starter-code` for this application is basically the finished 
 What are the steps to set up a new application from Github?
 
 <details>
-Fork/clone the repo, npm install, node db/dbSetup.js, nodemon server.js.
+Fork/clone the repo, npm install, bower install, node db/dbSetup.js, nodemon server.js.
 
 This repo uses a different database than our Tunr database from last lab so you'll need to 
 create it in psql.
