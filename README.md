@@ -126,7 +126,7 @@ __Update our Views:__
 
 First, we must update what we're getting back from the Database to include songs with our artist.
 
-Let's add the following line to the top of our `artists` controller:
+Let's add the following line to the top of our `artists` (server-side) controller:
 
 `var Song = db.models.Song;`
 
@@ -139,12 +139,10 @@ Then we need to include any Song that matches our artist ID in our `show` route:
   })
 ```
 
-Finally, we need to add an unordered list to ``artists/show.ejs`` with all our songs: 
-```js
+Finally, we need to add an unordered list to ``templates/artists/show.html`` with all our songs: 
+```html
 <ul>
-  <% artist.songs.forEach(function(song) { %>
-    <li><%= song.title %></li>
-  <% }) %>
+  <li ng-repeat="song in artistController.oneArtist.songs">{{song.title}}</li>
 </ul>
 ```
 
@@ -161,7 +159,7 @@ Now we have a ``has_many`` relationship between ``Manager`` and ``Artist``, so w
 
 >**Hint:** Maybe the manager should be created first now, then we can pass its id into the artist creation function in a `.then` clause.  Once this is done, do we even need to call `artistCreate()` at the bottom of `seed.js`?
 
-Now, let's add an unordered list of the manager's songs to ``managers/show.ejs``.  Again, try to do this without looking at the Sprint above, then correct as needed.
+Now, let's add an unordered list of the manager's songs to ``templates/managers/show.html``.  Again, try to do this without looking at the Sprint above, then correct as needed.
 
 #### Sprint 3 Manager Ads
 Last but not least, let's start adding some revenue to Tunr. We're enabling managers to create
@@ -171,8 +169,7 @@ We'll do the following steps to add ads to our managers.
 
 1. Create a new model ``Ad`` that includes the fields ``headline`` and ``url`` (both Strings).
 2. Add a  ``Manager`` ``has_one`` ``Ad`` relationship.
-1. Add an ``Ad`` ``belongs_to`` ``Manager`` relationship.
-1. Create a migration that adds an ``Ad`` table with a . Also 
+1. Add an ``Ad`` ``belongs_to`` ``Manager`` relationship. 
 2. Create a new Ad in `seed.js` and associate the Ricky Bobby manager to the ad.
 1. On the manager index page, for each manager add the ad headline as a link to the ad url.
 
