@@ -1,0 +1,17 @@
+<h2>New Manager</h2>
+
+<form ng-submit="managerNewController.saveManager()">
+  <label for="name">Name:</label>
+  <input ng-model="managerNewController.newManager.name">
+
+  <label for="photoUrl">Email:</label>
+  <input ng-model="managerNewController.newManager.email">
+
+  <label for="nationality">Office Number:</label>
+  <input ng-model="managerNewController.newManager.office_number">
+
+  <label for="instrument">Cell Phone Number:</label>
+  <input ng-model="managerNewController.newManager.cell_phone_number">
+
+  <input type="submit" value="Create">
+</form>

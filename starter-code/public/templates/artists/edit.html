@@ -1,0 +1,20 @@
+<h2>Edit Artist</h2>
+
+<form ng-submit="artistEditController.updateArtist()">
+  <label for="name">Name:</label>
+  <input ng-model="artistEditController.updatedArtist.name">
+
+  <label for="photoUrl">Photo URL:</label>
+  <input ng-model="artistEditController.updatedArtist.photoUrl">
+
+  <label for="nationality">Nationality:</label>
+  <input ng-model="artistEditController.updatedArtist.nationality">
+
+  <label for="instrument">Instrument:</label>
+  <input ng-model="artistEditController.updatedArtist.instrument">
+
+  <label for="home_address">Home Address:</label>
+  <input ng-model="artistEditController.updatedArtist.home_address">
+
+  <input type="submit" value="Update">
+</form>

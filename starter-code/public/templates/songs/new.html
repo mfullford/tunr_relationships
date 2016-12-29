@@ -1,0 +1,17 @@
+<h2>New Song</h2>
+
+<form ng-submit="songNewController.saveSong()">
+  <label for="title">Title:</label>
+  <input ng-model="songNewController.newSong.title">
+
+  <label for="duration">Duration:</label>
+  <input ng-model="songNewController.newSong.duration">
+
+  <label for="date_of_release">Date of Release:</label>
+  <input ng-model="songNewController.newSong.date_of_release">
+
+  <label for="album_title">Album Title:</label>
+  <input ng-model="songNewController.newSong.album_title">
+
+  <input type="submit" value="Create">
+</form>

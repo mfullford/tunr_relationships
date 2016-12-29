@@ -1,0 +1,29 @@
+<h2>Managers</h2>
+
+<a class="btn" href="/managers/new">Add Manager</a>
+
+<div class="managers">
+  <div class="row" ng-repeat="manager in managersController.allManagers">
+    <ul>
+      <li>
+        <h2>
+          <a href="/managers/{{manager.id}}">
+            {{manager.name}}
+          </a>
+        </h2>
+      </li>
+      <li>
+        <a href="/managers/{{manager.id}}/edit">
+          Edit
+        </a>
+      </li>
+      <li>
+        <li>
+          <form ng-submit="managersController.deleteManager(manager)">
+            <input type="submit" value="Delete"/>
+          </form>
+        </li>
+      </li>
+    </ul>
+  </div>
+</div>

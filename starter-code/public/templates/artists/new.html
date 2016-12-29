@@ -1,0 +1,20 @@
+<h2>New Artist</h2>
+
+<form ng-submit="artistNewController.saveArtist()">
+  <label for="name">Name:</label>
+  <input ng-model="artistNewController.newArtist.name">
+
+  <label for="photoUrl">Photo URL:</label>
+  <input ng-model="artistNewController.newArtist.photoUrl">
+
+  <label for="nationality">Nationality:</label>
+  <input ng-model="artistNewController.newArtist.nationality">
+
+  <label for="instrument">Instrument:</label>
+  <input ng-model="artistNewController.newArtist.instrument">
+
+  <label for="home_address">Home Address:</label>
+  <input ng-model="artistNewController.newArtist.home_address">
+
+  <input type="submit" value="Create">
+</form>

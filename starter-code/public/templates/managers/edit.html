@@ -1,0 +1,17 @@
+<h2>Edit Manager</h2>
+
+<form ng-submit="managerEditController.updateManager()">
+  <label for="name">Name:</label>
+  <input ng-model="managerEditController.updatedManager.name">
+
+  <label for="photoUrl">Email:</label>
+  <input ng-model="managerEditController.updatedManager.email">
+
+  <label for="nationality">Office Number:</label>
+  <input ng-model="managerEditController.updatedManager.office_number">
+
+  <label for="instrument">Cell Phone Number:</label>
+  <input ng-model="managerEditController.updatedManager.cell_phone_number">
+
+  <input type="submit" value="Create">
+</form>
