@@ -12,52 +12,54 @@ Market: Denver
 *This workshop is important because:*
 
 Most applications include more than one model. Most of these models are related in some 
-way, for instance, artists play multiple songs. ActiveRecord provides helpful methods for working with related models, just like finding and querying a single table.
+way, for instance, artists play multiple songs. Sequelize provides helpful methods for working with related models, just like finding and querying a single table.
 
 ### What are the objectives?
 <!-- specific/measurable goal for students to achieve -->
 *After this workshop, developers will be able to:*
 
-- Create ActiveRecord models with ``has many`` and ``belongs to`` relationships
-- Create ActiveRecord models with ``has many through`` relationships
-- Create ActiveRecord models with ``has one`` relationships 
+- Create Sequelize models with ``has many`` and ``belongs to`` relationships
+- Create Sequelize models with ``has one`` relationships 
 
 ### Where should we be now?
 <!-- call out the skills that are prerequisites -->
 *Before this workshop, developers should already be able to:*
 
-- Create a simple Sinatra app
-- Set and get data from a SQL database using ActiveRecord 
+- Create an Express app
+- Create a model with Sequelize
+- Get data from a SQL database using PostgreSQL
 
 ## Relationships 
 
 It's time to start adding some relationships to the existing Tunr database. We're going to 
-help include information from the various models on different pages. We'll end up adding 
-song information to artists, help managers gain some credibility by listing the songs of their 
+include information from the various models on different pages. We'll end up adding 
+song information to artists and help managers gain some credibility by listing their 
 clients. Finally we'll add an optional revenue source by enabling managers to create an ad 
 to help attract new clients.
 
-When we originally started planning Tunr we created the following ERD, 
+Now that our Tunr app has artists, managers, and songs, we need to connect them. Enter our old friend, the ERD: 
 
-![Tunr ERD](https://github.com/den-wdi-1/tunr-relationships/blob/master/tunr_erd.png)
+![Tunr ERD](https://github.com/den-wdi-2/tunr-relationships/blob/master/tunr_erd.png)
 
 In this lab, we'll be implementing some of the ERD in our Tunr app.
 
 #### Sprint 0 Setup the application
-What are the steps to setup a new application from Github?
+
+You'll notice the `starter-code` for this application is basically the finished version of the last lab.
+
+What are the steps to set up a new application from Github?
 
 <details>
-Fork/clone the repo, bundle install, rake db:setup (rake db:setup runs rake db:create and rake
- db:schema:load, as well as running your seed file).
+Fork/clone the repo, npm install, bower install, node db/dbSetup.js, nodemon server.js.
 
-This repo uses a different database than our Tunr database from yesterday so you'll need to 
-create it from scratch.
+This repo uses a different database than our Tunr database from last lab so you'll need to 
+create it in psql.
 </details>
 
-It's also a good idea to do a review of the code and see what dependencies are included. What might be some useful dependencies that are included?
+It's also a good idea to do a review the code and see what dependencies are included. What might be some useful dependencies that are included?
 
 <details>
-rerun, tux
+express, sequelize, pg, pg-hstore, body-parser
 </details>
 
 #### Sprint 1 Songs and Artists 
@@ -65,156 +67,126 @@ Our first goal is to add a list of songs to the artist detail page and add the a
 to the list of songs. To do this, we'll create a **has many** relationship between the 
 ``Artist`` and ``Song`` models.
 
-To do this we'll need to:
+In the code, we'll need to:
 
 1. Update the models to list the relationship
-1. Update our database 
-2. Add songs to an artist
-2. Update our ERB accordingly
+2. Add songs to an artist in our seed file
+3. Update our view accordingly
 
 
 __Update our models:__
-To update our models we need to add only two lines of code. We update the 
-``models\artist.rb`` file to:
+To update our models we need to add only two lines of code. Remember our **belongs to** and **has many** keywords from our [SQL Relationships lesson](https://github.com/den-wdi-2/joins-and-more)? We need to add those to our ``models\index.js`` file:
 
-```ruby
-class Artist < ActiveRecord::Base
-  has_many :songs
-end
+```js
+...
+Song.belongsTo(Artist);
+Artist.hasMany(Song);
+...
 ```
 
-We update ``models\song.rb`` to:
+__Adding songs to an artist__
 
-```ruby
-class Song < ActiveRecord::Base
-  belongs_to :artist
-end
+First, we need to define a few songs that we will add to our artist, and put them in our `seed.js` file:
+
+```js
+var lucySongs = [
+	{
+		title: "O sole mio",
+		duration: "3:21",
+		date_of_release: "1990",
+		album_title: "Three Tenors in Concert"
+	},
+	{
+		title: "Nessun dorma",
+		duration: "3:21",
+		date_of_release: "1990",
+		album_title: "Three Tenors in Concert"
+	}
+];
 ```
 
-__Prep the database:__
+Next, we need to add them to an Artist. If we're using the seed file, the first artist is Luciano Pavoritti.
 
-We need to help the SQL database understand the relationship as well as our app. In order to 
-make the link in the database we need to create the migration. The migration is simple. We 
-do this often enough that ActiveRecord provides a special method for adding references.
+How do we add all these songs to Luciano?  Well, remember our friend `foreign key` from our SQL Relationships lesson?
+We need to put Luciano's artist id into a column in each song.  That will look like this:
 
-```ruby
-def change
-  add_reference :songs, :artist
-end
+```js
+.then(function(artist) {
+  	lucySongs.forEach(function(song) {
+  		song.artistId = artist.id;
+  	});
+  	DB.Song.bulkCreate(lucySongs);
+  });
 ```
 
-When you're looking to understand which side of the relationship to add the reference to, 
-a good rule of thumb is to create the reference on the ``belongs_to`` side of the 
-relationship.
+Now, we should be able to access a song's artist with the ``.artist`` method. And the ``.songs`` method will 
+give us the songs associated with an artist.
 
-__Making the relationship__ 
+__Update our Views:__
 
-Once we've updated our models and database, we now have access to methods describing the 
-relationship. Let's look at the following code:
+First, we must update what we're getting back from the Database to include songs with our artist.
 
-```ruby
-  luciano = Artist.first
-  luciano.songs
-  all_songs = Song.all
-  luciano.songs = all_songs
-  luciano.save
+Let's add the following line to the top of our `artists` controller:
+
+`var Song = db.models.Song;`
+
+Then we need to include any Song that matches our artist ID in our `show` route:
+
+```js
+  Artist.findById(req.params.id, {
+    //Return all songs that have a matching artistId
+    include: Song
+  })
 ```
 
-First we find an Artist. If we're using the seed file, the first artist is Luciano Pavoritti.
-Next, we can see that ActiveRecord add a songs method to artist instances.  This acts just like an 
-array. In particular, if we find all of the songs and assign those songs to the array, we can
-associate all the songs to ``luciano``. If we save ``luciano``, ActiveRecord takes care of 
-which records need to be saved and makes sure the database reflects what we just did in Ruby.
-
-Run the code in tux so that there are now songs associated to ``luciano``.
-
-Similarly, ActiveRecord added an ``.artist`` method to the song instances. The ``.artist`` method gives 
-us the Artist associated with a song.
-
-__Update our ERBs:__
-
-To the ``artists/show.erb``, let's add an unordered list: 
-```ruby
+Finally, we need to add an unordered list to ``artists/show.ejs`` with all our songs: 
+```js
 <ul>
-  <% @artist.songs.each do |song| %>
+  <% artist.songs.forEach(function(song) { %>
     <li><%= song.title %></li>
-  <% end %>
+  <% }) %>
 </ul>
-```
-
-In the ``songs/index.erb``, we can add an ``<li>`` tag right after the title with the artist
-name:
-
-```ruby
-<li>
-  <%= song.artist.name %>
-</li>
 ```
 
 Make sure your server is updated and let's review our work!
 
-#### Sprint 2 Managers and Songs through Artists
+#### Sprint 2 Artists and Managers
 
-Just like artists, managers need to highlight the hit songs they are associated with. Like with 
-artists, we'll add the songs to the show route of the managers.
+Just like artists need to highlight the hit songs they are associated with, managers need to highlight the hit artists they are associated with.
 
 First, we need to create a ``has many`` relationship between managers and artists. Try to do 
-this yourself. 
+this without looking at the Sprint above first, then correct as needed. Don't forget to run `dbSetup.js`, or you won't be able to finish the next steps.
 
-Here's a hint if you need it:
-<details>
-1. Add the ``has_many`` method to the ``Manager`` model and the ``belongs_to`` method to 
-``Artist``
+Now we have a ``has_many`` relationship between ``Manager`` and ``Artist``, so we need to seed our DB a little differently.  Add Pavarotti to Ricky Bobby's roster. Try to do this without looking at the Sprint above first, then correct as needed.
 
-2. Create a migration to reference manager from artists
+>**Hint:** Maybe the manager should be created first now, then we can pass its id into the artist creation function in a `.then` clause.  Once this is done, do we even need to call `artistCreate()` at the bottom of `seed.js`?
 
-3. Add an artist to a manager
-</details>
-
-Once we've added the ``has_many`` relationship between ``Manager`` and ``Artist``, adding 
-the ``has_many through`` relationship is easy. In fact, all we need to do is add two lines. In ``models/manager.rb`` we add 
-
-```ruby
-  has_many :songs, through: :artists
-```
-
-And in songs we add
-
-```ruby
-  belongs_to :manager
-```
-
-Once we add these lines, ActiveRecord adds a ``.songs`` method to ``Manager`` that acts like an array 
-of array of songs. ActiveRecord also adds a ``.manager`` to the ``Song`` instances to let us get the 
-``Manager`` associated with a song.
-
-Now, add an unordered list of the manager's songs to ``managers/show.erb``.
-
-Tip: ActiveRecord has some trouble with writing to ``has_many through`` relationships and 
-it should be treated more as a read only relationship.
+Now, let's add an unordered list of the manager's songs to ``managers/show.ejs``.  Again, try to do this without looking at the Sprint above, then correct as needed.
 
 #### Sprint 3 Manager Ads
-Last but not least let's start adding some revenue to Tunr. We're enabling managers to create
+Last but not least, let's start adding some revenue to Tunr. We're enabling managers to create
 ads to help drum up business.
 
 We'll do the following steps to add ads to our managers.
 
-1. Create a new class ``Ad`` that inherits from ``ActiveRecord::Base`` and includes a 
-``has_one`` relationship to ``Manager``.
-1. Add ``belongs_to`` in the ``Manager`` model.
-1. Create a migration that adds an ``Ad`` table with a fields ``headline`` and ``url``. Also 
-add a reference to the ``managers`` table pointing to the ``Ad`` model.
-2. Create a new Ad in tux and associate the Ricky Bobby manager to the ad.
+1. Create a new model ``Ad`` that includes the fields ``headline`` and ``url`` (both Strings).
+2. Add a  ``Manager`` ``has_one`` ``Ad`` relationship.
+1. Add an ``Ad`` ``belongs_to`` ``Manager`` relationship.
+1. Create a migration that adds an ``Ad`` table with a . Also 
+2. Create a new Ad in `seed.js` and associate the Ricky Bobby manager to the ad.
 1. On the manager index page, for each manager add the ad headline as a link to the ad url.
 
 ## Closing Thoughts
-Relationships are one of the most powerful ways we have of manipulating data. It let's us 
-use the Ruby methods that are much more used to and comfortable with rather than SQL which 
+Relationships are one of the most powerful ways we have of manipulating data. They let us 
+use the JS methods and object that we are much more comfortable with rather than SQL which 
 can be messy and lead to bugs.
 
 ## Resources
 
-- [ActiveRecord Associations Official Docs](http://guides.rubyonrails.org/association_basics.html)
+- [Sequelize Associations Official Docs](http://docs.sequelizejs.com/en/v3/docs/associations/)
+- [Solid Sequelize Tutorial with more advanced topics](https://scotch.io/tutorials/creating-an-angularjs-application-with-sequelize-part-1)\*
+
+\* Beware, this tutorial has some typos, misplaced files, and poorly explained concepts.  I give it a 7/10.  If you want to get used to reading tutorials, this is a pretty good example of what I'd call "good enough".
 
 ## Licensing
 
