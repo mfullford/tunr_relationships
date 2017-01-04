@@ -5,6 +5,8 @@ Market: Denver
 
 ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png)
 
+<!-- Decided to do this as a pair programming activity but with other person's computer -->
+
 # Building Models
 
 ### Why is this important?
