@@ -182,6 +182,7 @@ can be messy and lead to bugs.
 
 - [Sequelize Associations Official Docs](http://docs.sequelizejs.com/en/v3/docs/associations/)
 - [Solid Sequelize Tutorial with more advanced topics](https://scotch.io/tutorials/creating-an-angularjs-application-with-sequelize-part-1)\*
+- [How to make many-to-many relationships](http://docs.sequelizejs.com/en/latest/api/associations/belongs-to-many/)
 
 \* Beware, this tutorial has some typos, misplaced files, and poorly explained concepts.  I give it a 7/10.  If you want to get used to reading tutorials, this is a pretty good example of what I'd call "good enough".
 
