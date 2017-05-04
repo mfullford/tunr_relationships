@@ -1,5 +1,5 @@
 <!--
-Creator: JP Barela  
+Creator: JP Barela / Zeb Girouard
 Market: Denver
 -->
 
@@ -20,8 +20,8 @@ way, for instance, artists play multiple songs. Sequelize provides helpful metho
 <!-- specific/measurable goal for students to achieve -->
 *After this workshop, developers will be able to:*
 
-- Create Sequelize models with ``has many`` and ``belongs to`` relationships
-- Create Sequelize models with ``has one`` relationships 
+- **Create** Sequelize models with ``has many`` and ``belongs to`` relationships
+- **Create** Sequelize models with ``has one`` relationships 
 
 ### Where should we be now?
 <!-- call out the skills that are prerequisites -->
@@ -41,7 +41,7 @@ to help attract new clients.
 
 Now that our Tunr app has artists, managers, and songs, we need to connect them. Enter our old friend, the ERD: 
 
-![Tunr ERD](https://github.com/den-wdi-2/tunr-relationships/blob/master/tunr_erd.png)
+![Tunr ERD](tunr_erd.png)
 
 In this lab, we'll be implementing some of the ERD in our Tunr app.
 
@@ -52,7 +52,7 @@ You'll notice the `starter-code` for this application is basically the finished 
 What are the steps to set up a new application from Github?
 
 <details>
-Fork/clone the repo, npm install, bower install, node db/dbSetup.js, nodemon server.js.
+Fork/clone the repo, `npm install`, `bower install`, `node db/dbSetup.js`, `nodemon server.js`.
 
 This repo uses a different database than our Tunr database from last lab so you'll need to 
 create it in psql.
@@ -77,7 +77,7 @@ In the code, we'll need to:
 
 
 __Update our models:__
-To update our models we need to add only two lines of code. Remember our **belongs to** and **has many** keywords from our [SQL Relationships lesson](https://github.com/den-wdi-2/joins-and-more)? We need to add those to our ``models\index.js`` file:
+To update our models we need to add only two lines of code. Remember our **belongs to** and **has many** keywords from our [SQL Relationships lesson](https://github.com/den-materials/joins-and-more)? We need to add those to our ``models\index.js`` file:
 
 ```js
 ...
