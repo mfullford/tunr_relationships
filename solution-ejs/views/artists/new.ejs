@@ -1,0 +1,22 @@
+<% include ../partials/header.ejs %>
+<h2>New Artist</h2>
+
+<form action="/artists" method="post">
+  <label for="name">Name:</label>
+  <input name="name">
+
+  <label for="photoUrl">Photo URL:</label>
+  <input name="photoUrl">
+
+  <label for="nationality">Nationality:</label>
+  <input name="nationality">
+
+  <label for="instrument">Instrument:</label>
+  <input name="instrument">
+
+  <label for="home_address">Home Address:</label>
+  <input name="home_address">
+
+  <input type="submit" value="Create">
+</form>
+<% include ../partials/footer.ejs %>

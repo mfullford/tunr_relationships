@@ -1,0 +1,19 @@
+<% include ../partials/header.ejs %>
+<h2>Edit Song</h2>
+
+<form action='/songs/<%= song.id %>?_method=PUT' method="post">
+  <label for="title">Title:</label>
+  <input name="title" value='<%= song.title %>'>
+
+  <label for="duration">Duration:</label>
+  <input name="duration" value='<%= song.duration %>'>
+
+  <label for="date_of_release">Date of Release:</label>
+  <input name="date_of_release" value='<%= song.date_of_release %>'>
+
+  <label for="album_title">Album Title:</label>
+  <input name="album_title" value='<%= song.album_title %>'>
+
+  <input type="submit" value="Update">
+</form>
+<% include ../partials/footer.ejs %>

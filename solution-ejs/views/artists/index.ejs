@@ -1,0 +1,34 @@
+<% include ../partials/header.ejs %>
+<h2>Artists</h2>
+
+<a class="btn" href="/artists/new">Add Artist</a>
+
+<div class="artists">
+  <% artists.forEach(function(artist) { %>
+  <div class="row">
+    <img src="<%= artist.photoUrl %>" alt="<%= artist.name %> photo">
+    <ul>
+      <li>
+        <h2>
+          <a href="/artists/<%= artist.id %>">
+            <%= artist.name %>
+          </a>
+        </h2>
+      </li>
+      <li>
+        <a href="/artists/<%= artist.id %>/edit">
+          Edit
+        </a>
+      </li>
+      <li>
+        <li>
+          <form action="/artists/<%= artist.id %>/delete" method="post">
+            <button>Delete</button>
+          </form>
+        </li>
+      </li>
+    </ul>
+  </div>
+  <% }) %>
+</div>
+<% include ../partials/footer.ejs %>

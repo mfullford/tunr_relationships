@@ -1,0 +1,38 @@
+<% include ../partials/header.ejs %>
+<h2>Managers</h2>
+
+<a class="btn" href="/managers/new">Add Manager</a>
+
+<div class="managers">
+  <% managers.forEach(function(manager){ %>
+  <div class="row">
+    <ul>
+      <li>
+        <h2>
+          <a href="/managers/<%= manager.id %>">
+            <%= manager.name %>
+          </a>
+        </h2>
+      </li>
+      <li>
+        <a href="<%= manager.ad.url %>">
+          <%= manager.ad.headline %>
+        </a>        
+      </li>
+      <li>
+        <a href="/managers/<%= manager.id %>/edit">
+          Edit
+        </a>
+      </li>
+      <li>
+        <li>
+          <form action="/managers/<%= manager.id %>/delete" method="post">
+            <button>Delete</button>
+          </form>
+        </li>
+      </li>
+    </ul>
+  </div>
+  <% }) %>
+</div>
+<% include ../partials/footer.ejs %>

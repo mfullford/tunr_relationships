@@ -1,0 +1,12 @@
+<% include ../partials/header.ejs %>
+<h2><%= artist.name %></h2>
+<h3><%= artist.nationality %></h3>
+<h3><%= artist.instrument %></h3>
+<h3><%= artist.home_address %></h3>
+<ul>
+  <% artist.songs.forEach(function(song) { %>
+    <li><%= song.title %></li>
+  <% }) %>
+</ul>
+<img src="<%= artist.photoUrl %>">
+<% include ../partials/footer.ejs %>

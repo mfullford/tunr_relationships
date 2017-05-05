@@ -1,0 +1,17 @@
+<h2>Edit Song</h2>
+
+<form ng-submit="songEditController.updateSong()">
+  <label for="title">Title:</label>
+  <input ng-model="songEditController.updatedSong.title">
+
+  <label for="duration">Duration:</label>
+  <input ng-model="songEditController.updatedSong.duration">
+
+  <label for="date_of_release">Date of Release:</label>
+  <input ng-model="songEditController.updatedSong.date_of_release">
+
+  <label for="album_title">Album Title:</label>
+  <input ng-model="songEditController.updatedSong.album_title">
+
+  <input type="submit" value="Update">
+</form>

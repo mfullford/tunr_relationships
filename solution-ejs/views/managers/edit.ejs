@@ -1,0 +1,19 @@
+<% include ../partials/header.ejs %>
+<h2>Edit Manager</h2>
+
+<form action='/managers/<%= manager.id %>?_method=PUT' method="post">
+  <label for="name">Name:</label>
+  <input name="name" value='<%= manager.name %>'>
+
+  <label for="email">Email:</label>
+  <input name="email" value='<%= manager.email %>'>
+
+  <label for="office_number">Office Number:</label>
+  <input name="office_number" value='<%= manager.office_number %>'>
+
+  <label for="cell_phone_number">Cell Phone Number:</label>
+  <input name="cell_phone_number" value='<%= manager.cell_phone_number %>'>
+
+  <input type="submit" value="Update">
+</form>
+<% include ../partials/footer.ejs %>

@@ -1,0 +1,11 @@
+<% include ../partials/header.ejs %>
+<h2><%= manager.name %></h2>
+<h3><%= manager.email %></h3>
+<h3><%= manager.office_number %></h3>
+<h3><%= manager.cell_phone_number %></h3>
+<ul>
+	<% manager.artists.forEach(function(artist) { %>
+	<li><%= artist.name %></li>
+	<%})%>
+</ul>
+<% include ../partials/footer.ejs %>
