@@ -52,13 +52,13 @@ You'll notice the `starter-code` for this application is basically the finished 
 What are the steps to set up a new application from Github?
 
 <details>
-Fork/clone the repo, `npm install`, `bower install`, `node db/dbSetup.js`, `nodemon server.js`.
+Fork/clone the repo, `npm install`, `ts-node src/db/dbSetup.ts`, `npm start`.
 
 This repo uses a different database than our Tunr database from last lab so you'll need to 
 create it in psql.
 </details>
 
-It's also a good idea to do a review the code and see what dependencies are included. What might be some useful dependencies that are included?
+It's also a good idea to review the code and see what dependencies are included. What might be some useful dependencies that are included?
 
 <details>
 express, sequelize, pg, pg-hstore, body-parser
@@ -77,7 +77,7 @@ In the code, we'll need to:
 
 
 __Update our models:__
-To update our models we need to add only two lines of code. Remember our **belongs to** and **has many** keywords from our [SQL Relationships lesson](https://github.com/den-materials/joins-and-more)? We need to add those to our ``models\index.js`` file:
+To update our models we need to add only two lines of code. Remember our **belongs to** and **has many** keywords from our [SQL Relationships lesson](https://github.com/den-materials/joins-and-more)? We need to add those to our ``models/index.ts`` file:
 
 ```js
 ...
@@ -88,7 +88,7 @@ Artist.hasMany(Song);
 
 __Adding songs to an artist__
 
-First, we need to define a few songs that we will add to our artist, and put them in our `seed.js` file:
+First, we need to define a few songs that we will add to our artist, and put them in our `db/seed.ts` file:
 
 ```js
 var lucySongs = [
@@ -96,13 +96,15 @@ var lucySongs = [
 		title: "O sole mio",
 		duration: "3:21",
 		date_of_release: "1990",
-		album_title: "Three Tenors in Concert"
+		album_title: "Three Tenors in Concert",
+		artistId: ""
 	},
 	{
 		title: "Nessun dorma",
 		duration: "3:21",
 		date_of_release: "1990",
-		album_title: "Three Tenors in Concert"
+		album_title: "Three Tenors in Concert",
+		artistId: ""
 	}
 ];
 ```
@@ -141,39 +143,40 @@ Then we need to include any Song that matches our artist ID in our `show` route:
   })
 ```
 
-Finally, we need to add an unordered list to ``templates/artists/show.html`` with all our songs: 
+Finally, we need to add an unordered list to ``artist-show/artist-show.component.html`` with all our songs: 
 ```html
 <ul>
-  <li ng-repeat="song in artistController.oneArtist.songs">{{song.title}}</li>
+  <li *ngFor="let song of oneArtist.songs">{{song.title}}</li>
 </ul>
 ```
 
-Make sure your server is updated and let's review our work!
+Run `db/dbSetup.ts` again to accommodate the changes we made to our models.  Then seed your database.  Finally, restart your server, and let's review our work!
 
 #### Sprint 2 Artists and Managers
 
 Just like artists need to highlight the hit songs they are associated with, managers need to highlight the hit artists they are associated with.
 
 First, we need to create a ``has many`` relationship between managers and artists. Try to do 
-this without looking at the Sprint above first, then correct as needed. Don't forget to run `dbSetup.js`, or you won't be able to finish the next steps.
+this without looking at the Sprint above first, then correct as needed. Don't forget to run `dbSetup.ts`, or you won't be able to finish the next steps.
 
 Now we have a ``has_many`` relationship between ``Manager`` and ``Artist``, so we need to seed our DB a little differently.  Add Pavarotti to Ricky Bobby's roster. Try to do this without looking at the Sprint above first, then correct as needed.
 
->**Hint:** Maybe the manager should be created first now, then we can pass its id into the artist creation function in a `.then` clause.  Once this is done, do we even need to call `artistCreate()` at the bottom of `seed.js`?
+>**Hint:** Maybe the manager should be created first now, then we can pass its id into the artist creation function in a `.then` clause.  Once this is done, do we even need to call `artistCreate()` at the bottom of `seed.ts`?
 
-Now, let's add an unordered list of the manager's songs to ``templates/managers/show.html``.  Again, try to do this without looking at the Sprint above, then correct as needed.
+Now, let's add an unordered list of the manager's songs to `manager-show/manager-show.component.html`.  Again, try to do this without looking at the Sprint above, then correct as needed.
 
 #### Sprint 3 Manager Ads
-Last but not least, let's start adding some revenue to Tunr. We're enabling managers to create
+Last, but not least, let's start adding some revenue to Tunr. We're enabling managers to create
 ads to help drum up business.
 
 We'll do the following steps to add ads to our managers.
 
 1. Create a new model ``Ad`` that includes the fields ``headline`` and ``url`` (both Strings).
 2. Add a  ``Manager`` ``has_one`` ``Ad`` relationship.
-1. Add an ``Ad`` ``belongs_to`` ``Manager`` relationship. 
-2. Create a new Ad in `seed.js` and associate the Ricky Bobby manager to the ad.
-1. On the manager index page, for each manager add the ad headline as a link to the ad url.
+3. Add an ``Ad`` ``belongs_to`` ``Manager`` relationship. 
+4. Create a new Ad in `seed.js` and associate the Ricky Bobby manager to the ad.
+5. Include `Ad` in the back-end controller for `manager`.
+6. On the manager index page, for each manager add the ad headline as a link to the ad url.
 
 ## Closing Thoughts
 Relationships are one of the most powerful ways we have of manipulating data. They let us 
