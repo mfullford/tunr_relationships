@@ -17,15 +17,21 @@ var lucySongs = [
      }
 ];
 
- var artistCreate = function() {
- 	return DB.Artist.create({
-     name: 'Luciano Pavarotti',
-     photoUrl: 'http://img.informador.com.mx/biblioteca/imagen/677x508/811/810055.jpg',
-     nationality: 'Italiano',
-     instrument: 'Voice',
-     home_address: '1 Strada Roma'
-   });
- };
+var artistCreate = function(managerId) {
+     return DB.Artist.create({
+    name: 'Luciano Pavarotti',
+    photoUrl: 'http://img.informador.com.mx/biblioteca/imagen/677x508/811/810055.jpg',
+    nationality: 'Italiano',
+    instrument: 'Voice',
+    home_address: '1 Strada Roma',
+    managerId: managerId
+  }).then(function(artist) {
+     lucySongs.forEach(function(song) {
+          song.artistId = artist.id;
+     });
+     DB.Song.bulkCreate(lucySongs);
+  });
+};
  
  var managerCreate = function() {
  	return DB.Manager.create({
@@ -33,7 +39,10 @@ var lucySongs = [
      email: 'rbobby@gmail.com',
      office_number: '516-877-0304',
      cell_phone_number: '718-989-1231'
- 	});
+ 	}).then(function(manager) {
+          artistCreate(manager.id);
+          adCreate(manager.id);
+     });
  };
  
  var songCreate = function() {
@@ -45,16 +54,16 @@ var lucySongs = [
  	});
  };
 
-
- artistCreate()
- .then(function(artist) {
-     lucySongs.forEach(function(song) {
-          song.artistId = artist.id;
+var adCreate = function(managerId) {
+     return DB.Ad.create({
+          headline: "Ricking all the Bobbies since 1972",
+          url: "http://www.zombo.com",
+          managerId: managerId
      });
-     DB.Song.bulkCreate(lucySongs);
-  })
- .then(managerCreate)
- .then(songCreate)
- .then(function() {
- 	process.exit();
- }); 
+};
+
+managerCreate()
+.then(songCreate)
+.then(function() {
+     process.exit();
+});

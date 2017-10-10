@@ -165,7 +165,7 @@ Now we have a ``has_many`` relationship between ``Manager`` and ``Artist``, so w
 
 >**Hint:** Maybe the manager should be created first now, then we can pass its id into the artist creation function in a `.then` clause.  Once this is done, do we even need to call `artistCreate()` at the bottom of `seed.js`?
 
-Now, let's add an unordered list of the manager's songs to `manager-show/manager-show.component.html`.  Again, try to do this without looking at the Sprint above, then correct as needed.
+Now, let's add an unordered list of the manager's songs to `manager-show/manager-show.component.html`.  Again, try to do this without looking at the Sprint above, then correct as needed. Don't forget to change the `managers.js` controller as well.
 
 #### Sprint 3 Manager Ads
 Last, but not least, let's start adding some revenue to Tunr. We're enabling managers to create
@@ -177,8 +177,9 @@ We'll do the following steps to add ads to our managers.
 2. Add a  ``Manager`` ``has_one`` ``Ad`` relationship.
 3. Add an ``Ad`` ``belongs_to`` ``Manager`` relationship. 
 4. Create a new Ad in `seed.js` and associate the Ricky Bobby manager to the ad.
-5. Include `Ad` in the back-end controller for `manager`.
+5. Include `Ad` in the back-end controller for `manager` `index`.
 6. On the manager index page, for each manager add the ad headline as a link to the ad url.
+7. Make sure you run `dbSetup.js` and `seed.js`, then test it out!
 
 ## Closing Thoughts
 Relationships are one of the most powerful ways we have of manipulating data. They let us 
