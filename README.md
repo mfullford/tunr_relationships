@@ -5,8 +5,6 @@ Market: Denver
 
 ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png)
 
-<!-- Decided to do this as a pair programming activity but with other person's computer -->
-
 # Building Models
 
 ### Why is this important?
@@ -39,7 +37,7 @@ song information to artists and help managers gain some credibility by listing t
 clients. Finally we'll add an optional revenue source by enabling managers to create an ad 
 to help attract new clients.
 
-Now that our Tunr app has artists, managers, and songs, we need to connect them. Enter our old friend, the ERD: 
+Now that our Tunr app has artists, managers, and songs, we need to connect them. Enter the ERD (Entity Relationship Diagram): 
 
 ![Tunr ERD](tunr_erd.png)
 
@@ -52,16 +50,20 @@ You'll notice the `starter-code` for this application is basically the finished 
 What are the steps to set up a new application from Github?
 
 <details>
-Fork/clone the repo, `npm install`, `ts-node src/db/dbSetup.ts`, `npm start`.
+Fork/clone the repo first.
 
 This repo uses a different database than our Tunr database from last lab so you'll need to 
-create it in psql.
+create it in psql.  You can see what it's called in `back-end/db/dbSetup.js`.  You can also replace `<username>` with your username.
+
+Then run `npm install` in `back-end`, `node db/dbSetup.js`, `node db/seed.js`, and `nodemon server.js`.
+
+Then `npm install` in `front-end` and run `ng serve`.
 </details>
 
 It's also a good idea to review the code and see what dependencies are included. What might be some useful dependencies that are included?
 
 <details>
-express, sequelize, pg, pg-hstore, body-parser
+`express`, `sequelize`, `pg`, `pg-hstore`, `body-parser`
 </details>
 
 #### Sprint 1 Songs and Artists 
