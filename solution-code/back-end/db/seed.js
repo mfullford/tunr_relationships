@@ -1,5 +1,22 @@
 var DB = require("../models").models;
 
+var lucySongs = [
+     {
+          title: "O sole mio",
+          duration: "3:21",
+          date_of_release: "1990",
+          album_title: "Three Tenors in Concert",
+          artistId: ""
+     },
+     {
+          title: "Nessun dorma",
+          duration: "3:21",
+          date_of_release: "1990",
+          album_title: "Three Tenors in Concert",
+          artistId: ""
+     }
+];
+
  var artistCreate = function() {
  	return DB.Artist.create({
      name: 'Luciano Pavarotti',
@@ -27,8 +44,15 @@ var DB = require("../models").models;
  	    album_title: 'Best Album Ever'
  	});
  };
- 
+
+
  artistCreate()
+ .then(function(artist) {
+     lucySongs.forEach(function(song) {
+          song.artistId = artist.id;
+     });
+     DB.Song.bulkCreate(lucySongs);
+  })
  .then(managerCreate)
  .then(songCreate)
  .then(function() {

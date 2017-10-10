@@ -79,7 +79,7 @@ In the code, we'll need to:
 
 
 __Update our models:__
-To update our models we need to add only two lines of code. Remember our **belongs to** and **has many** keywords from our [SQL Relationships lesson](https://github.com/den-materials/joins-and-more)? We need to add those to our ``models/index.ts`` file:
+To update our models we need to add only two lines of code. Remember our **belongs to** and **has many** keywords from our [SQL Relationships lesson](https://github.com/den-materials/joins-and-more)? We need to add those to our ``models/index.js`` file:
 
 ```js
 ...
@@ -90,7 +90,7 @@ Artist.hasMany(Song);
 
 __Adding songs to an artist__
 
-First, we need to define a few songs that we will add to our artist, and put them in our `db/seed.ts` file:
+First, we need to define a few songs that we will add to our artist, and put them in our `db/seed.js` file:
 
 ```js
 var lucySongs = [
@@ -152,18 +152,18 @@ Finally, we need to add an unordered list to ``artist-show/artist-show.component
 </ul>
 ```
 
-Run `db/dbSetup.ts` again to accommodate the changes we made to our models.  Then seed your database.  Finally, restart your server, and let's review our work!
+Run `db/dbSetup.js` again to accommodate the changes we made to our models.  Then seed your database.  Finally, restart your server, and let's review our work!
 
 #### Sprint 2 Artists and Managers
 
 Just like artists need to highlight the hit songs they are associated with, managers need to highlight the hit artists they are associated with.
 
 First, we need to create a ``has many`` relationship between managers and artists. Try to do 
-this without looking at the Sprint above first, then correct as needed. Don't forget to run `dbSetup.ts`, or you won't be able to finish the next steps.
+this without looking at the Sprint above first, then correct as needed. Don't forget to run `dbSetup.js`, or you won't be able to finish the next steps.
 
 Now we have a ``has_many`` relationship between ``Manager`` and ``Artist``, so we need to seed our DB a little differently.  Add Pavarotti to Ricky Bobby's roster. Try to do this without looking at the Sprint above first, then correct as needed.
 
->**Hint:** Maybe the manager should be created first now, then we can pass its id into the artist creation function in a `.then` clause.  Once this is done, do we even need to call `artistCreate()` at the bottom of `seed.ts`?
+>**Hint:** Maybe the manager should be created first now, then we can pass its id into the artist creation function in a `.then` clause.  Once this is done, do we even need to call `artistCreate()` at the bottom of `seed.js`?
 
 Now, let's add an unordered list of the manager's songs to `manager-show/manager-show.component.html`.  Again, try to do this without looking at the Sprint above, then correct as needed.
 
